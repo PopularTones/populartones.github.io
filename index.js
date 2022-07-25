@@ -6,6 +6,8 @@ $(document).ready(function () {
     })
 });
 
+var context = new AudioContext();
+
 const bachFlow = {
     "1": ["1", "2", "3", "4", "5", "6", "7"],
     "2": ["5", "7"],
@@ -132,7 +134,6 @@ function getRandomInt(min, max) {
 }
 
 function playNote(frequency, type, duration) {
-    var context = new AudioContext();
     var o = null;
     var g = null;
     setTimeout(function () {
