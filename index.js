@@ -6,7 +6,6 @@ $(document).ready(function () {
     })
 });
 
-var context = new AudioContext();
 
 const bachFlow = {
     "1": ["1", "2", "3", "4", "5", "6", "7"],
@@ -91,10 +90,10 @@ function perform(playables) {
     for (p in playables) {
         var hrtz = playables[p].getHertz();
         console.log(playables[p].noteName + " " + playables[p].octive + " " + hrtz);
-        playNote(hrtz, 'sine', p.duration);
-        playNote(hrtz, 'square', p.duration);
-        playNote(hrtz, 'triangle', p.duration);
-        playNote(hrtz, 'sawtooth', p.duration);
+        playNote(hrtz, 'sine', playables[p].duration);
+        playNote(hrtz, 'square', playables[p].duration);
+        playNote(hrtz, 'triangle', playables[p].duration);
+        playNote(hrtz, 'sawtooth', playables[p].duration);
     }
 }
 
@@ -123,7 +122,7 @@ function nextBachFlow(key, playable) {
     // console.log(noteNumber, playable, playable.noteName)
     var nextNoteNumber = bachFlow[noteNumber][getRandomInt(0, bachFlow[noteNumber].length)];
     var nextNote = numberToNote[key][nextNoteNumber]
-    var nextPlayable = Playable(nextNote, 0.5, getRandomInt(3,5));
+    var nextPlayable = Playable(nextNote, 0.5, getRandomInt(3, 5));
     return nextPlayable
 }
 
@@ -134,6 +133,7 @@ function getRandomInt(min, max) {
 }
 
 function playNote(frequency, type, duration) {
+    var context = new AudioContext();
     var o = null;
     var g = null;
     setTimeout(function () {
