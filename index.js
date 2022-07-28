@@ -86,59 +86,59 @@ function sing(playables) {
 }
 
 function performBeats(beats) {
-	//Here I anticipate having a list of lists, one for each voice that is sounding
+	// Here I anticipate having a list of lists, one for each voice that is sounding
 	// so  a voice can drop out for a 'rest' for a given beat.
 	// in this format, the greatest duration value will be 1
 
+	// the following illustrates the datastructure for 4 beats
+	//	
+	//	C	G	A	F
+	//	I	V	vi	IV
+	//
+	//[
+	//	[
+	//		Playable('C',1,5), // soprano
+	//		Playable('G',1,4), // alto
+	//		Playable('E',1,4), // tenor
+	//		Playable('C',1,3) // bass
+	//	],
+	//	[
+	//		Playable('E',1,5), // soprano
+	//		Playable('G',1,4), // alto
+	//		Playable('C',1,4), // tenor
+	//		Playable('G',1,3) // bass
+	//
+	//	],	
+	//	[
+	//		Playable('C',1,5), // soprano
+	//		//!! Playable('G',1,4), // OMIT alto
+	//		Playable('E',1,4), // tenor
+	//		Playable('A',1,3) // bass
+	//
+	//	],
+	//	[
+	//		Playable('A',1,5), // soprano
+	//		Playable('C',1,4), // alto
+	//		Playable('C',1,4), // tenor
+	//		Playable('F',1,3) // bass
+	//
+	//	]
+	//]
+	
 	for(b in beats){
-		// the following illustrates the datastructure for 4 beats
-		//	
-		//	C	G	A	F
-		//	I	V	vi	IV
-		//
-		//[
-		//	[
-		//		Playable('C',1,5), // soprano
-		//		Playable('G',1,4), // alto
-		//		Playable('E',1,4), // tenor
-		//		Playable('C',1,3) // bass
-		//	],
-		//	[
-		//		Playable('E',1,5), // soprano
-		//		Playable('G',1,4), // alto
-		//		Playable('C',1,4), // tenor
-		//		Playable('G',1,3) // bass
-		//
-		//	],	
-		//	[
-		//		Playable('C',1,5), // soprano
-		//		//Playable('G',1,4), // OMIT alto
-		//		Playable('E',1,4), // tenor
-		//		Playable('A',1,3) // bass
-		//
-		//	],
-		//	[
-		//		Playable('A',1,5), // soprano
-		//		Playable('C',1,4), // alto
-		//		Playable('C',1,4), // tenor
-		//		Playable('F',1,3) // bass
-		//
-		//	]
-		//]
 		var playables = beats[b];
 		for (p in playables) {
-			(function(i){window.setTimeout(function(){
-				var hrtz = playables[p].getHertz();
-				//console.log(playables[p].noteName + " " + playables[p].octive + " " + hrtz + " " + playables[p].duration);
-				var durationFactor = 1;
-				var noteDuration = durationFactor * playables[p].duration;
-				playNote(hrtz, 'sine', noteDuration);
-		        	playNote(hrtz, 'square', noteDuration);
-		        	playNote(hrtz, 'triangle', noteDuration);
-		        	playNote(hrtz, 'sawtooth', noteDuration);
-    		
-
-			}, i * 2000);}(b));
+			(function(i){
+				window.setTimeout( function(){
+					var hrtz = playables[p].getHertz();
+					var durationFactor = 1;
+					var noteDuration = durationFactor * playables[p].duration;
+					playNote(hrtz, 'sine', noteDuration);
+		        		playNote(hrtz, 'square', noteDuration);
+		        		playNote(hrtz, 'triangle', noteDuration);
+		        		playNote(hrtz, 'sawtooth', noteDuration);
+				}, i * 2000);
+			}(b));
 		}
 	}
 }
