@@ -1,9 +1,11 @@
 $(document).ready(function () {
-    console.log("ready!");
-    //attach a click listener to a play button
-    document.getElementById('playButtonId').addEventListener('click', async () => {
-        bachFlowVoice();
-    })
+	console.log("ready");
+	document.getElementById('voiceButtonId').addEventListener('click', async () => {
+	    bachFlowVoice();
+    	})
+	document.getElementById('choirButtonId').addEventListener('click', async () => {
+	    bachFlowChoir();
+    	})
 });
 
 
