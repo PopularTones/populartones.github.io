@@ -18,58 +18,42 @@ const bachFlow = {
 }
 
 const majorScale = {
-    "Cb": ["Cb", "Db", "Eb", "Fb", "Gb", "Ab", "Bb"],
+    "Cb": ["Cb", "Db", "Eb", "Fb", "Gb", "Ab", "B"],
     "Gb": ["Gb", "Ab", "Bb", "Cb", "Db", "Eb", "F"],
     "Db": ["Db", "Eb", "F", "Gb", "Ab", "Bb", "C"],
     "Ab": ["Ab", "Bb", "C", "Db", "Eb", "F", "G"],
     "Eb": ["Eb", "F", "G", "Ab", "Bb", "C", "D"],
     "Bb": ["Bb", "C", "D", "Eb", "F", "G", "A"],
-    "F": ["F", "G", "A", "Bb", "C", "D", "B"],
+    "F": ["F", "G", "A", "Bb", "C", "D", "E"],
     "C": ["C", "D", "E", "F", "G", "A", "B"],
     "G": ["G", "A", "B", "C", "D", "E", "F#"],
     "D": ["D", "E", "F#", "G", "A", "B", "C#"],
     "A": ["A", "B", "C#", "D", "E", "F#", "G#"],
     "E": ["E", "F#", "G#", "A", "B", "C#", "D#"],
     "B": ["B", "C#", "D#", "E", "F#", "G#", "A#"],
-    "F#": ["F#", "G#", "A#", "B", "C#", "D#", "B#"],
-    "C#": ["C#", "D#", "E#", "F#", "G#", "A#", "B#"]
+    "F#": ["F#", "G#", "A#", "B", "C#", "D#", "F"],
+    "C#": ["C#", "D#", "E#", "F#", "G#", "A#", "C"]
 }
 const numberToNote = {
-    "Cb": {
-        "1": "Cb",
-        "2": "Db",
-        "3": "Eb",
-        "4": "Fb",
-        "5": "Gb",
-        "6": "Ab",
-        "7": "Bb"
-    },
+    "Cb": { "1": "Cb", "2": "Db", "3": "Eb", "4": "E", "5": "Gb", "6": "Ab", "7": "B" },
     "Gb": { "1": "Gb", "2": "Ab", "3": "Bb", "4": "Cb", "5": "Db", "6": "Eb", "7": "F" },
     "Db": { "1": "Db", "2": "Eb", "3": "F", "4": "Gb", "5": "Ab", "6": "Bb", "7": "C" },
     "Ab": { "1": "Ab", "2": "Bb", "3": "C", "4": "Db", "5": "Eb", "6": "F", "7": "G" },
     "Eb": { "1": "Eb", "2": "F", "3": "G", "4": "Ab", "5": "Bb", "6": "C", "7": "D" },
     "Bb": { "1": "Bb", "2": "C", "3": "D", "4": "Eb", "5": "F", "6": "G", "7": "A" },
-    "F": { "1": "F", "2": "G", "3": "A", "4": "Bb", "5": "C", "6": "D", "7": "B" },
+    "F": { "1": "F", "2": "G", "3": "A", "4": "Bb", "5": "C", "6": "D", "7": "E" },
     "C": { "1": "C", "2": "D", "3": "E", "4": "F", "5": "G", "6": "A", "7": "B" },
     "G": { "1": "G", "2": "A", "3": "B", "4": "C", "5": "D", "6": "E", "7": "F#" },
     "D": { "1": "D", "2": "E", "3": "F#", "4": "G", "5": "A", "5": "B", "7": "C#" },
     "A": { "1": "A", "2": "B", "3": "C#", "4": "D", "5": "E", "6": "F#", "7": "G#" },
     "E": { "1": "E", "2": "F#", "3": "G#", "4": "A", "5": "B", "6": "C#", "7": "D#" },
     "B": { "1": "B", "2": "C#", "3": "D#", "4": "E", "5": "F#", "6": "G#", "7": "A#" },
-    "F#": { "1": "F#", "2": "G#", "3": "A#", "4": "B", "5": "C#", "6": "D#", "7": "B#" },
-    "C#": { "1": "C#", "2": "D#", "3": "E#", "4": "F#", "5": "G#", "6": "A#", "7": "B#" }
+    "F#": { "1": "F#", "2": "G#", "3": "A#", "4": "B", "5": "C#", "6": "D#", "7": "F" },
+    "C#": { "1": "C#", "2": "D#", "3": "F", "4": "F#", "5": "G#", "6": "A#", "7": "C" }
 }
 
 const noteToNumber = {
-    "Cb": {
-        "Cb": "1",
-        "Db": "2",
-        "Eb": "3",
-        "Fb": "4",
-        "Gb": "5",
-        "Ab": "6",
-        "Bb": "7"
-    },
+    "Cb": { "Cb": "1", "Db": "2","Eb": "3", "E": "4", "Gb": "5", "Ab": "6", "B": "7" },
     "Gb": { "Gb": "1", "Ab": "2", "Bb": "3", "Cb": "4", "Db": "5", "Eb": "6", "F": "7" },
     "Db": { "Db": "1", "Eb": "2", "F": "3", "Gb": "4", "Ab": "5", "Bb": "6", "C": "7" },
     "Ab": { "Ab": "1", "Bb": "2", "C": "3", "Db": "4", "Eb": "5", "F": "6", "G": "7" },
@@ -82,19 +66,79 @@ const noteToNumber = {
     "A": { "A": "1", "B": "2", "C#": "3", "D": "4", "E": "5", "F#": "6", "G#": "7" },
     "E": { "E": "1", "F#": "2", "G#": "3", "A": "4", "B": "5", "C#": "6", "D#": "7" },
     "B": { "B": "1", "C#": "2", "D#": "3", "E": "4", "F#": "5", "G#": "6", "A#": "7" },
-    "F#": { "F#": "1", "G#": "2", "A#": "3", "B": "4", "C#": "5", "D#": "6", "B#": "7" },
-    "C#": { "C#": "1", "D#": "2", "E#": "3", "F#": "4", "G#": "5", "A#": "6", "B#": "7" }
+    "F#": { "F#": "1", "G#": "2", "A#": "3", "B": "4", "C#": "5", "D#": "6", "F": "7" },
+    "C#": { "C#": "1", "D#": "2", "F": "3", "F#": "4", "G#": "5", "A#": "6", "C": "7" }
 }
 
-function perform(playables) {
+function sing(playables) {
     for (p in playables) {
         var hrtz = playables[p].getHertz();
-        console.log(playables[p].noteName + " " + playables[p].octive + " " + hrtz);
-        playNote(hrtz, 'sine', playables[p].duration);
-        playNote(hrtz, 'square', playables[p].duration);
-        playNote(hrtz, 'triangle', playables[p].duration);
-        playNote(hrtz, 'sawtooth', playables[p].duration);
+        console.log(playables[p].noteName + " " + playables[p].octive + " " + hrtz + " " + playables[p].duration);
+        var durationFactor = 0.25;
+	var noteDuration = durationFactor * playables[p].duration;
+	playNote(hrtz, 'sine', noteDuration);
+        playNote(hrtz, 'square', noteDuration);
+        playNote(hrtz, 'triangle', noteDuration);
+        playNote(hrtz, 'sawtooth', noteDuration);
     }
+}
+
+function performBeats(beats) {
+	//Here I anticipate having a list of lists, one for each voice that is sounding
+	// so  a voice can drop out for a 'rest' for a given beat.
+	// in this format, the greatest duration value will be 1
+
+	for(b in beats){
+		// the following illustrates the datastructure for 4 beats
+		//	
+		//	C	G	A	F
+		//	I	V	vi	IV
+		//
+		//[
+		//	[
+		//		Playable('C',1,5), // soprano
+		//		Playable('G',1,4), // alto
+		//		Playable('E',1,4), // tenor
+		//		Playable('C',1,3) // bass
+		//	],
+		//	[
+		//		Playable('E',1,5), // soprano
+		//		Playable('G',1,4), // alto
+		//		Playable('C',1,4), // tenor
+		//		Playable('G',1,3) // bass
+		//
+		//	],	
+		//	[
+		//		Playable('C',1,5), // soprano
+		//		//Playable('G',1,4), // OMIT alto
+		//		Playable('E',1,4), // tenor
+		//		Playable('A',1,3) // bass
+		//
+		//	],
+		//	[
+		//		Playable('A',1,5), // soprano
+		//		Playable('C',1,4), // alto
+		//		Playable('C',1,4), // tenor
+		//		Playable('F',1,3) // bass
+		//
+		//	]
+		//]
+		var playables = beats[b];
+		for (p in playables) {
+			(function(i){window.setTimeout(function(){
+				var hrtz = playables[p].getHertz();
+				//console.log(playables[p].noteName + " " + playables[p].octive + " " + hrtz + " " + playables[p].duration);
+				var durationFactor = 1;
+				var noteDuration = durationFactor * playables[p].duration;
+				playNote(hrtz, 'sine', noteDuration);
+		        	playNote(hrtz, 'square', noteDuration);
+		        	playNote(hrtz, 'triangle', noteDuration);
+		        	playNote(hrtz, 'sawtooth', noteDuration);
+    		
+
+			}, i * 2000);}(b));
+		}
+	}
 }
 
 function bachFlowVoice() {
@@ -105,24 +149,66 @@ function bachFlowVoice() {
     //var playableNoteA = numberToNote[key][thisNoteA];
     //var noteA = bachFlow[thisNoteA][getRandomInt(0, bachFlow[thisNoteA].length)];
     var voice = []
-    var key = 'B'
+
+
+function bachFlowVoice() {
+    //I'd like this to generate and complete naturally,
+    // but here I'm going to start with just 20 or so bars
+
+    //console.log("key: " + key + ", " + thisNoteA + "," + noteValueA + ", " + thisNoteB + "," + noteValueB);
+    //var playableNoteA = numberToNote[key][thisNoteA];
+    //var noteA = bachFlow[thisNoteA][getRandomInt(0, bachFlow[thisNoteA].length)];
+    var voice = []
+    var key = 'C#'
     var startingNote = key
-    var p = Playable(key, 0.5, 4);
+    var p = Playable(key, 1, 4);
     var playable = nextBachFlow(key, p);
 
-    for (var i = 0; i < 40; i++) {
+    for (var i = 0; i < 20; i++) {
         playable = nextBachFlow(key, playable)
         voice.push(playable)
     }
-    perform(voice);
+    sing(voice);
 }
+
+function bachFlowChoir() {
+	//I'm taking the implementation of the single voice
+	// and scaling it up to a 4 voice choir
+	
+	// each beat, we can choose to play a note from one of 4 voices
+	var beats = []
+	var key = 'C';
+	
+	// nice to start on a well voiced chord
+	var sopNote = Playable('C', 1, 5);
+	var altNote = Playable('G', 1, 4);
+	var tenNote = Playable('E', 1, 4);
+	var basNote = Playable('C', 1, 3);
+	
+    	for (var i = 0; i < 20; i++) {
+		var voice = [];
+        	sopNote = nextBachFlow(key, sopNote);
+        	altNote = nextBachFlow(key, altNote);
+        	tenNote = nextBachFlow(key, tenNote);
+        	basNote = nextBachFlow(key, basNote);
+        	
+		voice.push(sopNote);
+		voice.push(altNote);
+		voice.push(tenNote);
+		voice.push(basNote);
+
+		beats.push(voice);
+    	}
+    	choirPerform(voice);
+}
+
 
 function nextBachFlow(key, playable) {
     var noteNumber = noteToNumber[key][playable.noteName]
-    // console.log(noteNumber, playable, playable.noteName)
+    //console.log(noteNumber, playable, playable.noteName, playable.duration)
     var nextNoteNumber = bachFlow[noteNumber][getRandomInt(0, bachFlow[noteNumber].length)];
     var nextNote = numberToNote[key][nextNoteNumber]
-    var nextPlayable = Playable(nextNote, 0.5, getRandomInt(3, 5));
+    var nextPlayable = Playable(nextNote, getRandomInt(1,6), getRandomInt(3, 5));
     return nextPlayable
 }
 
@@ -145,7 +231,7 @@ function playNote(frequency, type, duration) {
         g.connect(context.destination);
         o.start(0);
         g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + duration);
-    }, 1000)
+    }, duration * 2000)
 }
 
 const Playable = (n, d, o) => {
