@@ -177,21 +177,30 @@ function bachFlowChoir() {
 	var tenNote = Playable('E', 1, 4);
 	var basNote = Playable('C', 1, 3);
 	
-    	for (var i = 0; i < 20; i++) {
+	var songLength = 8;
+    	for (var i = 0; i < songLength; i++) {
 		var voice = [];
         	sopNote = nextBachFlow(key, sopNote);
         	altNote = nextBachFlow(key, altNote);
         	tenNote = nextBachFlow(key, tenNote);
         	basNote = nextBachFlow(key, basNote);
         	
-		voice.push(sopNote);
-		voice.push(altNote);
-		voice.push(tenNote);
-		voice.push(basNote);
-
+		// lets just throw a random chance of resting here
+		if(getRandomInt(0,5) != 4){
+			voice.push(sopNote);
+		}
+		if(getRandomInt(0,4) != 3){
+			voice.push(altNote);
+		}	
+		if(getRandomInt(0,4) != 3){
+			voice.push(tenNote);
+		}
+		if(getRandomInt(0,7) != 6){
+			voice.push(basNote);
+		}
 		beats.push(voice);
     	}
-    	choirPerform(voice);
+    	performBeats(beats);
 }
 
 
