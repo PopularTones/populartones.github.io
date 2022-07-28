@@ -151,16 +151,6 @@ function bachFlowVoice() {
     //var playableNoteA = numberToNote[key][thisNoteA];
     //var noteA = bachFlow[thisNoteA][getRandomInt(0, bachFlow[thisNoteA].length)];
     var voice = []
-
-
-function bachFlowVoice() {
-    //I'd like this to generate and complete naturally,
-    // but here I'm going to start with just 20 or so bars
-
-    //console.log("key: " + key + ", " + thisNoteA + "," + noteValueA + ", " + thisNoteB + "," + noteValueB);
-    //var playableNoteA = numberToNote[key][thisNoteA];
-    //var noteA = bachFlow[thisNoteA][getRandomInt(0, bachFlow[thisNoteA].length)];
-    var voice = []
     var key = 'C#'
     var startingNote = key
     var p = Playable(key, 1, 4);
