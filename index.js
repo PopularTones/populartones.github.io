@@ -73,16 +73,18 @@ const noteToNumber = {
 }
 
 function sing(playables) {
-    for (p in playables) {
-        var hrtz = playables[p].getHertz();
-        console.log(playables[p].noteName + " " + playables[p].octive + " " + hrtz + " " + playables[p].duration);
-        var durationFactor = 0.25;
-	var noteDuration = durationFactor * playables[p].duration;
-	playNote(hrtz, 'sine', noteDuration);
-        playNote(hrtz, 'square', noteDuration);
-        playNote(hrtz, 'triangle', noteDuration);
-        playNote(hrtz, 'sawtooth', noteDuration);
-    }
+	for (var p = 0; p < playables.length; p++) {
+		(function(p, offset){
+                	window.setTimeout( function(){
+                		console.log('PLAYING: ' + p.noteName + p.octive + " " + p.duration);
+                		var hrtz = p.getHertz();
+				playNote(hrtz, 'sine', p.duration);
+				//playNote(hrtz, 'square', p.duration);
+				//playNote(hrtz, 'triangle', p.duration);
+				//playNote(hrtz, 'sawtooth', p.duration);
+                	}, offset * 1000);
+        	}(playables[p], p));
+	}
 }
 
 function performBeats(beats) {
@@ -125,20 +127,18 @@ function performBeats(beats) {
 	//	]
 	//]
 	
-	for(b in beats){
-		var playables = beats[b];
-		for (p in playables) {
-			(function(i){
+	for(var b = 0; b < beats.length; b++){
+		for (var p = 0; p < beats[b].length; p++) {
+			(function(p, offset){
 				window.setTimeout( function(){
-					var hrtz = playables[p].getHertz();
-					var durationFactor = 1;
-					var noteDuration = durationFactor * playables[p].duration;
-					playNote(hrtz, 'sine', noteDuration);
-		        		playNote(hrtz, 'square', noteDuration);
-		        		playNote(hrtz, 'triangle', noteDuration);
-		        		playNote(hrtz, 'sawtooth', noteDuration);
-				}, i * 2000);
-			}(b));
+					console.log('PLAYING: ' + p.noteName + p.octive + " " + p.duration);
+					var hrtz = p.getHertz();
+					//playNote(hrtz, 'sine', p.duration);
+		        		//playNote(hrtz, 'square', p.duration);
+		        		playNote(hrtz, 'triangle', p.duration);
+		        		playNote(hrtz, 'sawtooth', p.duration);
+				}, offset * 1000);
+			}(beats[b][p], b));
 		}
 	}
 }
@@ -165,7 +165,8 @@ function bachFlowVoice() {
 
 function bachFlowChoir() {
 	//I'm taking the implementation of the single voice
-	// and scaling it up to a 4 voice choir
+	// and scaling it up to 4 voices
+	// all independently bachFlow-ing
 	
 	// each beat, we can choose to play a note from one of 4 voices
 	var beats = []
@@ -176,9 +177,10 @@ function bachFlowChoir() {
 	var altNote = Playable('G', 1, 4);
 	var tenNote = Playable('E', 1, 4);
 	var basNote = Playable('C', 1, 3);
-	
+	beats.push([basNote,tenNote,altNote,sopNote]);
+
 	var songLength = 8;
-    	for (var i = 0; i < songLength; i++) {
+    	for (var i = 0; i < songLength - 1; i++) {
 		var voice = [];
         	sopNote = nextBachFlow(key, sopNote);
         	altNote = nextBachFlow(key, altNote);
@@ -186,31 +188,37 @@ function bachFlowChoir() {
         	basNote = nextBachFlow(key, basNote);
         	
 		// lets just throw a random chance of resting here
-		if(getRandomInt(0,5) != 4){
+		if(getRandomInt(0,8) != 7){
 			voice.push(sopNote);
 		}
-		if(getRandomInt(0,4) != 3){
+		if(getRandomInt(0,6) != 5){
 			voice.push(altNote);
 		}	
-		if(getRandomInt(0,4) != 3){
+		if(getRandomInt(0,6) != 5){
 			voice.push(tenNote);
 		}
-		if(getRandomInt(0,7) != 6){
+		if(getRandomInt(0,8) != 7){
 			voice.push(basNote);
 		}
 		beats.push(voice);
     	}
-    	performBeats(beats);
+	performBeats(beats);
 }
 
 
 function nextBachFlow(key, playable) {
-    var noteNumber = noteToNumber[key][playable.noteName]
-    //console.log(noteNumber, playable, playable.noteName, playable.duration)
-    var nextNoteNumber = bachFlow[noteNumber][getRandomInt(0, bachFlow[noteNumber].length)];
-    var nextNote = numberToNote[key][nextNoteNumber]
-    var nextPlayable = Playable(nextNote, getRandomInt(1,6), getRandomInt(3, 5));
-    return nextPlayable
+	var noteNumber = noteToNumber[key][playable.noteName]
+	//console.log(noteNumber, playable, playable.noteName, playable.duration)
+	var nextNoteNumber = bachFlow[noteNumber][getRandomInt(0, bachFlow[noteNumber].length)];
+	var nextNote = numberToNote[key][nextNoteNumber]
+	// note octive should be closest notationally from this to next note
+	var nextOctive = playable.octive;
+	// difference will be no greater than 7 - 1 or less than 1 - 7
+	// but its better to go from 1 -> 7 down an octive and 7 -> 1 up an octive
+	if (noteNumber - nextNoteNumber > 5) {nextOctive++} 
+	else if (noteNumber - nextNoteNumber < -4) {nextOctive--} 
+	var nextPlayable = Playable(nextNote, 1, nextOctive);
+	return nextPlayable
 }
 
 function getRandomInt(min, max) {
